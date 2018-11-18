@@ -3,10 +3,10 @@ import java.util.*;
 
 
 public class LineGenerator {
-	private ArrayList<DataPoint> queue;
+	//private ArrayList<DataPoint> queue;
 	private DataPoint lastElementin;
 
-	public ArrayList<DataPoint> create_ds(int status,int nb_points){
+	public static ArrayList<DataPoint> create_ds(int status,int nb_points){
 		Random r =new Random();
 		ArrayList<DataPoint> list = new ArrayList<DataPoint>();
 
@@ -49,7 +49,7 @@ public class LineGenerator {
 		else throw new IllegalArgumentException("Status not defined");
 	}
 
-	public DataPoint find_p3(DataPoint p2,double angle) {
+	public static DataPoint find_p3(DataPoint p2,double angle) {
 		Random r =new Random();
 		double angle_rad=Math.toRadians(angle);
 		double dist_p2_p3 = r.nextInt((int) (maxdistance-0.3*maxdistance))+0.3*maxdistance;
@@ -60,7 +60,7 @@ public class LineGenerator {
 		return p3;
 	}
 
-	private double dist(DataPoint a, DataPoint b) {
+	private static double dist(DataPoint a, DataPoint b) {
 		double dist = Math.sqrt(Math.pow((a.x[0]-b.x[0]), 2)+Math.pow((a.x[1]-b.x[1]), 2));
 		return dist;
 	}
@@ -72,8 +72,14 @@ public class LineGenerator {
 	 
 
 	public static void main(String[] args) {
-		LineGenerator lg = new LineGenerator();
-		ArrayList<DataPoint> ds = lg.create_ds(1,100);
+		ArrayList<DataPoint> ds = LineGenerator.create_ds(1,100);
+		//Sort array
+		Collections.sort(ds);
+		//
+		
+		for(DataPoint d: ds) {
+			System.out.println(d);
+		}
 		File file=new File("file.csv");
 		try {
 			PrintWriter printwriter=new PrintWriter(file);
@@ -86,8 +92,6 @@ public class LineGenerator {
 			e.printStackTrace();
 		}
 		
-
-
 	}
 
 	private static final int MinPointsInQueue = 6;

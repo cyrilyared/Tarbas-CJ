@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class EstimateTime {
-
+	
 	/**
 	 * This will be done the easiest way (Grade 6)
 	 * @param listOfPoints

@@ -1,3 +1,7 @@
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Map;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -6,6 +10,9 @@ public class GroupQueue {
 	//create a method that given array list I sort it and then iterate through x and y and add elements
 	//to a hash map (same key) if they are connected 
 	//compare to all other elements in Hashmap (if connected to one)
+
+
+public static ArrayList<DataPoint> identifyLongestQueue(List<DataPoint> array, int minimalAcceptableDistance) {
 
 	//	public HashMap<Integer, DataPoint> identifyQueues(ArrayList<DataPoint> array) {
 	//		ArrayList<DataPoint>[] possibleChains = new ArrayList<DataPoint>[array.size()];
@@ -40,12 +47,6 @@ public class GroupQueue {
 		ArrayList<Integer> categories = new ArrayList<Integer>();
 		//Sort ArrayList
 		Collections.sort(array); 
-
-		//		int i = 0;
-		//		while(i < array.size()) {
-		//			
-		//			i++;
-		//		}
 
 		//first element label 1
 		int category_label = 1;
@@ -121,7 +122,5 @@ public class GroupQueue {
 		}
 		return result;
 	}
-
-
 
 }

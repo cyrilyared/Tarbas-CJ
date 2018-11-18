@@ -7,27 +7,98 @@ public class Tarbas {
     public static final String PERSON_DETECTION_FILE = "person_detection.py";
     public static final String LINEAR_REGRESSION_FILE = "linear_regression.py";
     public static final String IMAGES_DIRECTORY = "./images";
+    public static final int MINIMUM_DISTANCE_BETWEEN_POINTS = 8;
 
     public static void main(String[] args) throws IOException {
         String personDetectionFile = runPython(new String[] {PERSON_DETECTION_FILE, IMAGES_DIRECTORY});
 
-        List<String> newImageFiles = new ArrayList<String>(Arrays.asList(personDetectionFile.split(";")));
+        List<String> newImageCSVFiles = new ArrayList<String>(Arrays.asList(personDetectionFile.split(";")));
         List<Double> RScore = new ArrayList<Double>();
-        System.out.println(String.valueOf(newImageFiles.size()) + " ");
+        System.out.println(String.valueOf(newImageCSVFiles.size()) + " images found.");
 
 
-
-
-
-        for(String str: newImageFiles) {
-            System.out.println(str);
-
-            String linRegScore = runPython(new String[] {LINEAR_REGRESSION_FILE, str});
-            System.out.println("R^2 of " + str + " is: "+ linRegScore);
-            if(linRegScore != null && linRegScore != "" & linRegScore != "null") {
-                RScore.add(Double.valueOf(linRegScore));
-            }
+        for(String csvFile: newImageCSVFiles) {
+            RScore.add((processImageCSVFile(csvFile)));
         }
+    }
+
+    public static double processImageCSVFile(String csvFile) throws IOException {
+            BufferedReader br = null;
+            String line = "";
+            String CSVSplit = ",";
+            List<DataPoint> dataPointList = new ArrayList<DataPoint>();
+
+            try {
+
+                br = new BufferedReader(new FileReader(csvFile));
+                while ((line = br.readLine()) != null) {
+                    String[] datapointStr = line.split(CSVSplit);
+                    double x = Double.parseDouble(datapointStr[0]);
+                    double y = Double.parseDouble(datapointStr[1]);
+                    double coordinate[] = {x, y};
+                    DataPoint dataPoint = new DataPoint(coordinate);
+                    dataPointList.add(dataPoint);
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+
+
+            List<DataPoint> processedList = GroupQueue.identifyLongestQueue(dataPointList, MINIMUM_DISTANCE_BETWEEN_POINTS);
+            List<String> csvComponent = new ArrayList<String>(Arrays.asList(csvFile.split("\\.")));
+            for(String csv: csvComponent) {
+                System.out.println(csv);
+            }
+
+            String processedFileName = "." + csvComponent.get(1) + "_processed.csv";
+            boolean fileCreated = printToCSV(processedFileName, processedList);
+
+            System.out.println("Processing " + processedFileName);
+
+            String linRegScore = runPython(new String[] {LINEAR_REGRESSION_FILE, csvFile});
+            System.out.println("R^2 of " + csvFile + " is: "+ linRegScore);
+
+            if(fileCreated) {
+                linRegScore = runPython(new String[]{LINEAR_REGRESSION_FILE, processedFileName});
+                System.out.println("R^2 of " + processedFileName + " is: " + linRegScore);
+            }
+
+            if(linRegScore != null && linRegScore != "" & linRegScore != "null") {
+                return Double.parseDouble(linRegScore);
+            } else {
+                return 0;
+            }
+    }
+
+    public static boolean printToCSV(String filename, List<DataPoint> dataPoints) {
+        File file=new File(filename);
+        if (dataPoints == null || dataPoints.size() == 0) {
+            return false;
+        }
+        try {
+            PrintWriter printwriter=new PrintWriter(file);
+            for(DataPoint d: dataPoints) {
+                printwriter.println(d.x[0]+","+d.x[1]);
+            }
+            printwriter.close();
+            return true;
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**

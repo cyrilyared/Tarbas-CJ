@@ -12,6 +12,13 @@ public class DataPoint implements Comparable<DataPoint> {
 		x[1] = coordinates[1];
 		this.label = label;
 	}
+
+	public DataPoint(double[] coordinates) {
+		this.x = new double[2];
+		x[0] = coordinates[0];
+		x[1] = coordinates[1];
+		this.label = -1;
+	}
 	
 	public String toString() {
 		String result = "";

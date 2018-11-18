@@ -1,3 +1,4 @@
+## Based on the work of Norman Di Palo found here: https://medium.com/nanonets/how-i-built-a-self-flying-drone-to-track-people-in-under-50-lines-of-code-7485de7f828e
 
 import os
 import sys
@@ -160,7 +161,7 @@ if __name__ == "__main__":
         #### boxes are in [ymin. xmin. ymax, xmax] format
         scores, classes, img, boxes = prediction_class.predict_single_image(image, image.rsplit('.', 1)[0])
         image_name, ext = image.rsplit('.', 1)
-        new_image_name = image_name + "_prediction." + ext
+        new_image_name = image_name + "_processed." + ext
         img.save(new_image_name)
     print(fileoutput)
     prediction_class.sess.close()

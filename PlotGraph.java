@@ -32,22 +32,8 @@ public class PlotGraph extends GraphicsProgram {
 		}
 		return point_add;
 	}
-	/**
-	 * Returns training matrix to be used to classify 
-	 * @param a
-	 * @return matrix
-	 */
-	public int[][] trainingmatrix(ArrayList<DataPoint> a) {
-		int[][] result = new int[100][];
-		for(DataPoint data: a) {
-			if(data.label == 1) {
-				result[(int) data.x[0]][(int) data.x[1]] = 2;
-			} else {
-				result[(int) data.x[0]][(int) data.x[1]] = 1;
-			}
-		}
-		return result;
-	}
+
+	
 	
 //	public void init() {
 //		DataPoint p = new DataPoint(new double[] {3.4, 10}, 1);

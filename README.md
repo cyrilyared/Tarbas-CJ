@@ -15,7 +15,7 @@ Without Bounding Boxes     |  With Bounding Boxes
 
 ## Linear Regression
 
-In order to determine whether the sets of `(x, y)` points approximate a line, we use a basic linear regression algorithm provided by scikit-learn in `linearReg.py`. This returns a R^2 score which we use to determine how closely these `(x, y)` points meet a model of a line.
+In order to determine whether the sets of `(x, y)` points approximate a line, we use a basic linear regression algorithm provided by scikit-learn in `linear_regression.py`. This returns a R^2 score which we use to determine how closely these `(x, y)` points meet a model of a line.
 
 
 Contributors: Alexander Asfar, Michel Majdalani, Cyril Yared

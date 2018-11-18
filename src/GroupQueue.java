@@ -14,32 +14,7 @@ public class GroupQueue {
 
 public static ArrayList<DataPoint> identifyLongestQueue(List<DataPoint> array, int minimalAcceptableDistance) {
 
-	//	public HashMap<Integer, DataPoint> identifyQueues(ArrayList<DataPoint> array) {
-	//		ArrayList<DataPoint>[] possibleChains = new ArrayList<DataPoint>[array.size()];
-	//		//HashMap<Integer, DataPoint> map = new HashMap<Integer, DataPoint>(array.size());
-	//		//Sort ArrayList
-	//		Collections.sort(array); 
-	//		int i = 0;
-	//		
-	//		for(DataPoint data: array) {
-	//			possibleChains[i] = data;
-	//			for(DataPoint data2: array) {
-	//				if(!data.equals(data2)) {
-	//					//if not the same point, calculate distance
-	//					double distanceCalculated = calculatedistance(data, data2);
-	//					//if less than minimal acceptable, add to same key in HashMap
-	//					if(distanceCalculated < minimalAcceptableDistance) {
-	//						//so it is related to point
-	//						map.put(i, data2);
-	//					}
-	//				} 
-	//			}
-	//			i++;
-	//		}
-	//		return map;
-	//	}
 
-	public static ArrayList<DataPoint> identifyLongestQueue(List<DataPoint> array, int minimalAcceptableDistance) {
 		if(array == null || array.size() == 0) {
 			return null;
 		}

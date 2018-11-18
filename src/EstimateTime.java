@@ -39,7 +39,7 @@ public class EstimateTime {
 	 * @param l: estimated time in seconds
 	 * @return the time in hours, minutes second format
 	 */
-	public String toString(int time) {	
+	public static String toString(int time) {
 		String result = "";
 		int hours =  time/3600;
 		int minutes = (time%3600)/60;

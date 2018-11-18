@@ -26,7 +26,10 @@ public class Tarbas {
             if(TimeQueue.get(i) == -1) {
                 System.out.println("No queue found for " + newImageCSVFiles.get(i));
             } else {
-                System.out.println("Waiting time for queue " + newImageCSVFiles.get(i) + " is " +String.valueOf(TimeQueue.get(i))+" seconds.");
+                double time = TimeQueue.get(i);
+                int timeInt = (int)time;
+
+                System.out.println("Waiting time for queue " + newImageCSVFiles.get(i) + " is " +EstimateTime.toString(timeInt)+".");
             }
         }
     }

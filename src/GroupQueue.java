@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Collections;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -11,41 +10,10 @@ public class GroupQueue {
 	//to a hash map (same key) if they are connected 
 	//compare to all other elements in Hashmap (if connected to one)
 
-	//	public HashMap<Integer, DataPoint> identifyQueues(ArrayList<DataPoint> array) {
-	//		ArrayList<DataPoint>[] possibleChains = new ArrayList<DataPoint>[array.size()];
-	//		//HashMap<Integer, DataPoint> map = new HashMap<Integer, DataPoint>(array.size());
-	//		//Sort ArrayList
-	//		Collections.sort(array); 
-	//		int i = 0;
-	//		
-	//		for(DataPoint data: array) {
-	//			possibleChains[i] = data;
-	//			for(DataPoint data2: array) {
-	//				if(!data.equals(data2)) {
-	//					//if not the same point, calculate distance
-	//					double distanceCalculated = calculatedistance(data, data2);
-	//					//if less than minimal acceptable, add to same key in HashMap
-	//					if(distanceCalculated < minimalAcceptableDistance) {
-	//						//so it is related to point
-	//						map.put(i, data2);
-	//					}
-	//				} 
-	//			}
-	//			i++;
-	//		}
-	//		return map;
-	//	}
-
 	public static ArrayList<DataPoint> identifyLongestQueue(ArrayList<DataPoint> array, int minimalAcceptableDistance) {
 		ArrayList<Integer> categories = new ArrayList<Integer>();
 		//Sort ArrayList
 		Collections.sort(array); 
-
-		//		int i = 0;
-		//		while(i < array.size()) {
-		//			
-		//			i++;
-		//		}
 
 		//first element label 1
 		int category_label = 1;
@@ -122,7 +90,5 @@ public class GroupQueue {
 		}
 		return result;
 	}
-
-
 
 }

@@ -3,9 +3,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class tarbas {
+public class Tarbas {
     public static final String PERSON_DETECTION_FILE = "person_detection.py";
-    public static final String LINEAR_REGRESSION_FILE = "linearReg.py";
+    public static final String LINEAR_REGRESSION_FILE = "linear_regression.py";
     public static final String IMAGES_DIRECTORY = "./images";
 
     public static void main(String[] args) throws IOException {
@@ -14,6 +14,10 @@ public class tarbas {
         List<String> newImageFiles = new ArrayList<String>(Arrays.asList(personDetectionFile.split(";")));
         List<Double> RScore = new ArrayList<Double>();
         System.out.println(String.valueOf(newImageFiles.size()) + " ");
+
+
+
+
 
         for(String str: newImageFiles) {
             System.out.println(str);

@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class home {
+public class EstimateTime {
 
 	/**
 	 * This will be done the easiest way (Grade 6)

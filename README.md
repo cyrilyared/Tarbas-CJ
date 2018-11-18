@@ -5,7 +5,7 @@ Our society is governed by lines (or queues as they call it on the other side of
 Our software system takes an image of any format, determines where the individuals are in this image, and then determines whether these individuals are in a line.
 
 ## Person Detection
-The main file which is used to draw bounding boxes and determine the coordinates of individuals in an image is `person_detection.py`. It is based on the Google TensorFlow Object Detection API and the file is based on the work of Norman Di Palo as found [here](https://medium.com/nanonets/how-i-built-a-self-flying-drone-to-track-people-in-under-50-lines-of-code-7485de7f828e). All images in the directory specified by `IMAGES_DIRECTORY` in `tarbas.java` will be processed. It will output processed images with bounding boxes identifying individuals as shown below. 
+The main file which is used to draw bounding boxes and determine the coordinates of individuals in an image is `person_detection.py`. It is based on the Google TensorFlow Object Detection API and the file is based on the work of Norman Di Palo as found [here](https://medium.com/nanonets/how-i-built-a-self-flying-drone-to-track-people-in-under-50-lines-of-code-7485de7f828e). All images in the directory specified by `IMAGES_DIRECTORY` in `Tarbas.java` will be processed. It will output processed images with bounding boxes identifying individuals as shown below.
 
 The central point of each bounding box is also saved as a `(x, y)` pair in a CSV file for that image so that this data can later be used to identify lines.
 

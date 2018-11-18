@@ -13,12 +13,21 @@ public class Tarbas {
         String personDetectionFile = runPython(new String[] {PERSON_DETECTION_FILE, IMAGES_DIRECTORY});
 
         List<String> newImageCSVFiles = new ArrayList<String>(Arrays.asList(personDetectionFile.split(";")));
-        List<Double> RScore = new ArrayList<Double>();
+        List<Double> TimeQueue = new ArrayList<Double>();
         System.out.println(String.valueOf(newImageCSVFiles.size()) + " images found.");
 
 
         for(String csvFile: newImageCSVFiles) {
-            RScore.add((processImageCSVFile(csvFile)));
+            Double time = processImageCSVFile(csvFile);
+            TimeQueue.add(time);
+        }
+        System.out.println("\n\n");
+        for(int i = 0; i < newImageCSVFiles.size(); i++)  {
+            if(TimeQueue.get(i) == -1) {
+                System.out.println("No queue found for " + newImageCSVFiles.get(i));
+            } else {
+                System.out.println("Waiting time for queue " + newImageCSVFiles.get(i) + " is " +String.valueOf(TimeQueue.get(i))+" seconds.");
+            }
         }
     }
 
@@ -58,9 +67,6 @@ public class Tarbas {
 
             List<DataPoint> processedList = GroupQueue.identifyLongestQueue(dataPointList, MINIMUM_DISTANCE_BETWEEN_POINTS);
             List<String> csvComponent = new ArrayList<String>(Arrays.asList(csvFile.split("\\.")));
-            for(String csv: csvComponent) {
-                System.out.println(csv);
-            }
 
             String processedFileName = "." + csvComponent.get(1) + "_processed.csv";
             boolean fileCreated = printToCSV(processedFileName, processedList);
@@ -76,9 +82,15 @@ public class Tarbas {
             }
 
             if(linRegScore != null && linRegScore != "" & linRegScore != "null") {
-                return Double.parseDouble(linRegScore);
+                 double rscore = Double.parseDouble(linRegScore);
+                 if(rscore > 0.7) {
+                     double time = EstimateTime.estimatedTimeNeeded1(dataPointList, 60, 0);
+                     return time;
+                 } else {
+                     return -1;
+                 }
             } else {
-                return 0;
+                return -1;
             }
     }
 

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class EstimateTime {
 
@@ -9,7 +10,7 @@ public class EstimateTime {
 	 * @param index (location of point in queue : number of people that came after you)
 	 * @return estimated time it takes you no matter where you are in the queue (in seconds)
 	 */
-	public int estimatedTimeNeeded1(ArrayList<DataPoint> listOfPoints, int average_rate, int index) { 	
+	public static int estimatedTimeNeeded1(List<DataPoint> listOfPoints, int average_rate, int index) {
 		return (listOfPoints.size()- index) * average_rate;
 	}
 
@@ -26,7 +27,7 @@ public class EstimateTime {
 	 * @param index
 	 * @return
 	 */
-	public int estimatedTimeNeeded2 (ArrayList<DataPoint> listOfPoints, int index) {
+	public static int estimatedTimeNeeded2 (ArrayList<DataPoint> listOfPoints, int index) {
 
 		return 0;
 	}

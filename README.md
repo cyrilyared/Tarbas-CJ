@@ -25,5 +25,14 @@ In order to determine whether the sets of `(x, y)` points approximate a line, we
 
 In order to estimate the time an individual might spend waiting in a line, a group of coordinates of individuals in a line along with an estimated waiting time per each individual in the line is provided to `EstimateTime.java`. It then returns the amount of time an individual has to spend in line.
 
+## Line Training Data
+
+Training data for what constitutes a line can be generated from `LineGenerator.java`. This creates a randomly generated queue in terms of `(x, y)` coordinates with some deviation and adds randomly generated extraneous datapoints. This data has labels identifying if the point is in the queue (1) or not (0).
+
+## Tarbas
+
+All scripts (Java and Python) are run directly from `Tarbas.java.` All configuration can be specified in the file. Images can be placed in the designated directory for processing.
+
+
 
 Contributors: Alexander Asfar, Michel Majdalani, Cyril Yared

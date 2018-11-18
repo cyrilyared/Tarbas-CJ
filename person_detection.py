@@ -22,10 +22,12 @@ PATH_TO_OBJECT_DETECTION_REPO = os.environ["OBJECTPATH"]
 PATH_TO_LABELS = PATH_TO_OBJECT_DETECTION_REPO + "data/mscoco_label_map.pbtxt"
 NUM_CLASSES = 1
 BOUND_BOXES_OUTPUT_FILE = "boxes.csv"
+IMAGES_DIRECTORY = sys.argv[1]
+
 
 ##### config variables to set 
 threshold = 0.35
-test_image_dir = "./images"    # Insert path to directory containing test images
+fileoutput = None
 
 def download_model(model_name):
     """Download the model from tensorflow model zoo
@@ -34,19 +36,19 @@ def download_model(model_name):
     """
     model_file = model_name + '.tar.gz'
     if os.path.isfile(model_name + '/frozen_inference_graph.pb'):
-        print("File already downloaded")
+        # print("File already downloaded")
         return
     opener = urllib.request.URLopener()
     try:
-        print("Downloading Model")
+        # print("Downloading Model")
         opener.retrieve(DOWNLOAD_BASE + model_file, model_file)
-        print("Extracting Model")
+        # print("Extracting Model")
         tar_file = tarfile.open(model_file)
         for file in tar_file.getmembers():
             file_name = os.path.basename(file.name)
             if 'frozen_inference_graph.pb' in file_name:
                 tar_file.extract(file, os.getcwd())
-        print("Done")
+        # print("Done")
     except:
         raise Exception("Not able to download model, please check the model name")
 
@@ -57,13 +59,19 @@ def draw_rectangle(draw, coordinates, color, width=1):
         rect_end = (coordinates[3] + i, coordinates[2] + i)
         draw.rectangle((rect_start, rect_end), outline = color)
 
-def printCoordToFile(boxes, image_name, im_width, im_height):
+def printCoordToFile(boxes, image_name, im_width, im_height,):
     arr = np.empty((0,2), int)
     for b in boxes:
         x_coord = (b[1]+b[3])*100/(im_width*2)
         y_coord = (b[0]+b[2])*100/(im_height*2)
         arr = np.append(arr, np.array([[x_coord, y_coord]]), axis=0)
-    np.savetxt(image_name + "_" + BOUND_BOXES_OUTPUT_FILE, arr, delimiter = ',')
+    new_file = image_name + "_" + BOUND_BOXES_OUTPUT_FILE
+    np.savetxt(new_file, arr, delimiter = ',')
+    global fileoutput
+    if fileoutput is None:
+        fileoutput = new_file
+    else:
+        fileoutput = fileoutput + ";" + new_file
 
 class ObjectDetectionPredict():
     """class method to Load tf graph and 
@@ -145,8 +153,8 @@ class ObjectDetectionPredict():
 
 if __name__ == "__main__":
     prediction_class = ObjectDetectionPredict(model_name=MODEL_NAME)
-    all_test_images = glob.glob("%s/*.jpg"%(test_image_dir.rstrip('/')))
-    print("Number of Test Images : ", len(all_test_images))
+    all_test_images = glob.glob("%s/*.jpg"%(IMAGES_DIRECTORY.rstrip('/')))
+    # print("Number of Test Images : ", len(all_test_images))
 
     for image in all_test_images:
         #### boxes are in [ymin. xmin. ymax, xmax] format
@@ -154,4 +162,5 @@ if __name__ == "__main__":
         image_name, ext = image.rsplit('.', 1)
         new_image_name = image_name + "_prediction." + ext
         img.save(new_image_name)
+    print(fileoutput)
     prediction_class.sess.close()
